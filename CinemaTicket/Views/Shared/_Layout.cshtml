@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking Tickets</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <link href="~/css/movie-details.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Booking_Tickets.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <div class="logo"><span>CINEMA</span></div>
+        <button class="mobile-menu-btn">☰</button>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">HOME</a></li>
+                <li><a href="#">CATEGORIES</a></li>
+                <li><a href="#">CINEMAS</a></li>
+            </ul>
+        </nav>
+    </header>
+
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About TRAE CINEMA</h3>
+                <p>Your premier destination for the latest movies and cinema experiences. We bring you the best of entertainment with state-of-the-art facilities and exceptional service.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="#">Home</a>
+                    <a href="#">Categories</a>
+                    <a href="#">Cinemas</a>
+                    <a href="#">Contact</a>
+                    <a href="#">FAQ</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Cinema Info</h3>
+                <div class="footer-links">
+                    <a href="#">Locations</a>
+                    <a href="#">Screenings</a>
+                    <a href="#">Pricing</a>
+                    <a href="#">Membership</a>
+                    <a href="#">Bookings</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for the latest updates and special offers.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2023 TRAE CINEMA | All rights reserved</p>
+        </div>
+    </footer>
+    <div class="cursor"></div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/script.js" ></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

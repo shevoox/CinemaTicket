@@ -1,0 +1,139 @@
+﻿@model List<CinemaTicket.Models.Movie>
+
+
+<!-- Main Hero Banner (Improved Design) -->
+<section class="main-hero">
+    <div class="hero-banner">
+        <img src="/images/Inception.jpg" alt="">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <div class="movie-badge">Now Showing</div>
+                <h1>@Model.FirstOrDefault(m => m.Title.Contains("Inception"))?.Title</h1>
+                <p class="hero-description">@Model.FirstOrDefault(e => e.Title.Contains("Inception"))?.Description</p>
+                <div class="movie-meta">
+                    <span><i class="rating-icon">PG</i> PG</span>
+                    <span><i class="duration-icon">⏱</i> 1h 47m</span>
+                    <span><i class="quality-icon">🎬</i> 4K UHD</span>
+                    <span><i class="year-icon">📅</i> 2021</span>
+                </div>
+                <div class="hero-buttons">
+                    <a href="/home/details" class="play-now-btn"><i class="ticket-icon">🎫</i>Book Tickets</a>
+                    <button class="watch-list-btn"><i class="info-icon">ℹ️</i>More Info</button>
+                </div>
+                <div class="hero-showtimes">
+                    <h3>Today's Showtimes</h3>
+                    <div class="showtime-slots">
+                        <div class="showtime-slot">2:30 PM</div>
+                        <div class="showtime-slot active">5:00 PM</div>
+                        <div class="showtime-slot">7:30 PM</div>
+                        <div class="showtime-slot">9:45 PM</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Movies Section -->
+<section class="movies-section">
+    <h2 class="section-title">Now Showing</h2>
+
+    <div class="filter-controls">
+        <div class="filter-buttons">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Action</button>
+            <button class="filter-btn">Comedy</button>
+            <button class="filter-btn">Drama</button>
+            <button class="filter-btn">Horror</button>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="movie-search" placeholder="Search by movie or cinema...">
+            <button class="search-btn">Search</button>
+        </div>
+    </div>
+
+    <!-- Movie Cards -->
+    <div class="movie-grid">
+        @foreach (var item in Model)
+        {
+            <div class="movie-card">
+                <div class="poster">
+                    <img src="~/images/@item.ImageUrl" alt="Movie Poster">
+
+                    <!-- Displaying screenings availability -->
+                    @foreach (var screening in item.Screenings)
+                    {
+                        <div class="availability @(screening.IsAvailable ? "available" : "not-available")">
+                            @(screening.IsAvailable ? "Available" : "Not Available")
+                        </div>
+                    }
+
+                    @foreach (var screening in item.Screenings)
+                    {
+                        <div class="cinema-place">Hall: @screening.HallNumber</div>
+                    }
+                </div>
+                <div class="movie-info">
+                    <h3>@item.Title</h3>
+                    <div class="movie-meta">
+                        <span class="category">@item.Genre</span>
+                        <span class="price">$@item.Price</span>
+                    </div>
+                    <div class="showtime">
+                        <span class="showtime-icon">🕒 Start Date</span>
+                        <span>
+                            @foreach (var screening in item.Screenings)
+                            {
+                                <span>@screening.StartDate?.ToString("dd/MM/yyyy")</span>
+                            }
+                        </span>
+                    </div>                    <div class="showtime">
+                        <span class="showtime-icon">🕒 End Date</span>
+                        <span>
+                            @foreach (var screening in item.Screenings)
+                            {
+                                <span>@screening.EndDate?.ToString("dd/MM/yyyy")</span>
+                            }
+                        </span>
+                    </div>
+                    <div class="seats-available">
+                        <span class="seats-icon">💺</span>
+                        @foreach (var screening in item.Screenings)
+                        {
+
+                        <span>@(screening.SeatNumber) seats left</span>
+                        }
+                    </div>
+                    <div class="booking-actions">
+                        <button class="book-btn">Book Now</button>
+                        <a asp-action="Details" asp-route="@item.Id" class="details-btn">More Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <a asp-action="Index" asp-route-page="@(ViewBag.CurrentPage - 1)" class="pagination-arrow">←</a>
+        }
+
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            var activeClass = i == ViewBag.CurrentPage ? "active" : "";
+            <a asp-action="Index" asp-route-page="@i" class="pagination-item @activeClass">
+                @i
+            </a>
+        }
+
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <a asp-action="Index" asp-route-page="@(ViewBag.CurrentPage + 1)" class="pagination-arrow">→</a>
+        }
+    </div>
+
+
+</section>
