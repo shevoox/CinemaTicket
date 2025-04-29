@@ -1,0 +1,134 @@
+﻿@model IEnumerable<Movie>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>Admin Dashboard</h2>
+            </div>
+            <nav class="nav-links">
+                <a href="#movies" class="active">
+                    <i class="fas fa-film"></i>
+                    <span>Movies Management</span>
+                </a>
+                <a href="#cinemas">
+                    <i class="fas fa-building"></i>
+                    <span>Cinemas Management</span>
+                </a>
+                <a href="#emails">
+                    <i class="fas fa-envelope"></i>
+                    <span>Emails Management</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Movies Section -->
+            <section id="movies" class="section active">
+                <div class="section-header">
+                    <h2>Movies Management</h2>
+                    <a asp-action="Create" class="add-btn">
+                        <i class="fas fa-plus"></i>
+                        Add New Movie
+                    </a>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Genre</th>
+                                <th>HallNumber</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Title</td>
+                                    <td>@item.Genre</td>
+                                    <td>@item.Screenings.FirstOrDefault()?.HallNumber</td>
+                                    <td>@item.Price.ToString("c")</td>
+                                    <td class="actions">
+                                        <button class="edit-btn"><i class="fas fa-edit"></i></button>
+                                        <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Cinemas Section -->
+            <section id="cinemas" class="section">
+                <div class="section-header">
+                    <h2>Cinemas Management</h2>
+                    <button class="add-btn">
+                        <i class="fas fa-plus"></i>
+                        Add New Cinema
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Cinema Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cinema 1</td>
+                                <td class="actions">
+                                    <button class="edit-btn"><i class="fas fa-edit"></i></button>
+                                    <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <!-- More rows will be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Emails Section -->
+            <section id="emails" class="section">
+                <div class="section-header">
+                    <h2>Emails Management</h2>
+                    <button class="add-btn">
+                        <i class="fas fa-plus"></i>
+                        Add New Email
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Email Address</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>example@email.com</td>
+                                <td class="actions">
+                                    <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <!-- More rows will be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>

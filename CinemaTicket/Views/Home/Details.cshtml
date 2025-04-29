@@ -1,4 +1,5 @@
-﻿<section class="movie-detail-page">
+﻿@model Movie
+<section class="movie-detail-page">
     <div class="movie-backdrop">
         <div class="backdrop-overlay"></div>
     </div>
@@ -6,7 +7,7 @@
     <div class="movie-detail-content">
         <div class="movie-detail-header">
             <div class="movie-poster-container">
-                <img id="detail-poster" src="" alt="Movie Poster">
+                <img id="detail-poster" src="/images/@Model.ImageUrl" alt="Movie Poster">
                 <div class="movie-availability"></div>
             </div>
 
@@ -19,7 +20,7 @@
                         <span id="detail-category" class="meta-value"></span>
                     </div>
                     <div class="meta-item">
-                        <span class="meta-label">Cinema</span>
+                        <span class="meta-label">@Model.Screenings.FirstOrDefault()?.HallNumber</span>
                         <span id="detail-cinema" class="meta-value"></span>
                     </div>
                     <div class="meta-item">
@@ -36,24 +37,24 @@
                     <div class="date-range">
                         <div class="start-date">
                             <span class="date-label">From</span>
-                            <span id="detail-start-date" class="date-value"></span>
+                            <span id="detail-start-date" class="date-value">@Model.Screenings.FirstOrDefault()?.StartDate?.ToString("dd/MM/yyyy")</span>
                         </div>
                         <div class="date-separator"></div>
                         <div class="end-date">
                             <span class="date-label">Until</span>
-                            <span id="detail-end-date" class="date-value"></span>
+                            <span id="detail-end-date" class="date-value">@Model.Screenings.FirstOrDefault()?.EndDate?.ToString("dd/MM/yyyy")</span>
                         </div>
                     </div>
                 </div>
 
                 <p id="detail-description" class="movie-description-full">
-                    Loading movie description...
+                   @Model.Description
                 </p>
 
                 <div class="movie-actions-detail">
                     <button id="book-ticket-btn" class="book-btn">Book Ticket</button>
                     <button class="outline-button trailer-btn">Watch Trailer</button>
-                    <button class="back-btn" onclick="window.history.back()">Back to Movies</button>
+                    <a class="back-btn" onclick="window.history.back()">Back to Movies</a>
                 </div>
             </div>
         </div>
@@ -72,31 +73,34 @@
                         <div class="showtime-date">
                             <h4>Today</h4>
                             <div class="time-slots">
-                                <button class="time-slot">7:00 PM</button>
-                                <button class="time-slot">9:30 PM</button>
+                                <button class="time-slot">@Model.Screenings.FirstOrDefault()?.StartDate?.ToString("hh:mm tt")</button>
+                                <button class="time-slot">@Model.Screenings.FirstOrDefault()?.EndDate?.ToString("hh:mm tt")</button>
                             </div>
                         </div>
-                        <div class="showtime-date">
-                            <h4>Tomorrow</h4>
-                            <div class="time-slots">
-                                <button class="time-slot">6:30 PM</button>
-                                <button class="time-slot">9:00 PM</button>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
 
                 <div id="cast" class="tab-pane">
                     <h3>Cast & Crew</h3>
                     <div class="cast-container">
-                        <p>Cast information will be loaded here.</p>
+                        @foreach (var item in Model.MovieCrews)
+                        {
+                            <div class="cast-member">
+                                <img src="/images/Crow/Leonardo_DiCaprio.jpg" alt="@item.Name" />
+                                <p>@item.Name</p>
+                                <p class="role">@item.Role</p>
+                            </div>
+                        }
                     </div>
                 </div>
+
+
 
                 <div id="reviews" class="tab-pane">
                     <h3>User Reviews</h3>
                     <div class="reviews-container">
-                        <p>Reviews will be loaded here.</p>
+                        <p> No Reviews yet</p>
                     </div>
                 </div>
             </div>

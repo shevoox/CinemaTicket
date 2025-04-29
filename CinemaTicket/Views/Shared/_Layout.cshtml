@@ -6,9 +6,8 @@
     <title>Booking Tickets</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link href="~/css/styles.css" rel="stylesheet" />
     <link href="~/css/movie-details.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/Booking_Tickets.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -16,11 +15,24 @@
         <button class="mobile-menu-btn">☰</button>
         <nav>
             <ul>
-                <li><a href="#" class="active">HOME</a></li>
-                <li><a href="#">CATEGORIES</a></li>
-                <li><a href="#">CINEMAS</a></li>
+                <li>
+                    <a asp-controller="Home" asp-action="Index"
+                       class="@(ViewContext.RouteData.Values["controller"]!.ToString() == "Home" ? "active" : "")">
+                        HOME
+                    </a>
+                </li>
+@*                 <li>
+                    <a asp-controller="Categories" asp-action="Index"
+                       class="@(ViewContext.RouteData.Values["controller"]!.ToString() == "Categories" ? "active" : "")">
+                        CATEGORIES
+                    </a>
+                </li> *@
+                <li>
+                    <a href="#">CINEMAS</a>
+                </li>
             </ul>
         </nav>
+
     </header>
 
         <main role="main" class="pb-3">
@@ -81,6 +93,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/js/movie-details.js"></script>
     <script src="~/js/script.js" ></script>
 
     @await RenderSectionAsync("Scripts", required: false)

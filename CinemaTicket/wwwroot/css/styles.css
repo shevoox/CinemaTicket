@@ -955,8 +955,8 @@ nav a:hover::before {
     left: 100%;
 }
 
-.filter-btn.active,
-.filter-btn:hover {
+.filter-btns.active,
+.filter-btns:hover {
     background-color: rgba(138, 43, 226, 0.3);
     color: #fff;
     border-color: var(--neon-blue);
@@ -1823,4 +1823,3 @@ footer::before {
         justify-content: center;
     }
 }
-

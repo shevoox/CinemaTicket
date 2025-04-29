@@ -1,4 +1,4 @@
-using CinemaTicket.Data;
+﻿using CinemaTicket.Data;
 using CinemaTicket.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,19 +15,65 @@ namespace CinemaTicket.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(string? SearchResult, string Genre, int page = 1)
         {
-            /* pagination */
             int PageSize = 5;
-            var totalMovies = _dbContext.Movies.Count();
-            var AllMovies = _dbContext.Movies.Include(e => e.Screenings).Skip((page - 1) * PageSize).Take(PageSize).ToList();
+
+            var query = _dbContext.Movies.Include(e => e.Screenings).AsQueryable();
+
+            if (!string.IsNullOrEmpty(SearchResult))
+            {
+                query = query.Where(m => m.Title.Contains(SearchResult));
+            }
+            if (!string.IsNullOrEmpty(Genre))
+            {
+                query = query.Where(m => m.Genre.Contains(Genre));
+            }
+
+
+
+            /* pagination */
+            var totalMovies = query.Count();
+            var AllMovies = query
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
+                .ToList();
+
+
+            ViewBag.NoResults = !AllMovies.Any();
             ViewBag.TotalPages = (int)Math.Ceiling((double)totalMovies / PageSize);
             ViewBag.CurrentPage = page;
+            ViewBag.SearchResult = SearchResult;
+            ViewBag.Genre = Genre;
+            ViewBag.Traffic = _dbContext.Movies.OrderByDescending(e => e.Trafic).FirstOrDefault();
+
+
+
             return View(AllMovies);
         }
-        public IActionResult Details()
+
+        [HttpPost]
+        public IActionResult IncreaseTraffic(int movieId)
         {
-            return View();
+
+            var movie = _dbContext.Movies.FirstOrDefault(m => m.Id == movieId);
+
+            if (movie != null)
+            {
+
+                movie.Trafic += 1;
+
+
+                _dbContext.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Details(int id)
+        {
+            var ModelFromController = _dbContext.Movies.Include(e => e.Screenings).Include(e => e.MovieCrews).FirstOrDefault(e => e.Id == id);
+            return View(ModelFromController);
         }
         public IActionResult Privacy()
         {

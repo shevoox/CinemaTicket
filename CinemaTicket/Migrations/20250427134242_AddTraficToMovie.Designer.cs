@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaTicket.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20250423165413_AddEndDateToScreening")]
-    partial class AddEndDateToScreening
+    [Migration("20250427134242_AddTraficToMovie")]
+    partial class AddTraficToMovie
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,6 +84,10 @@ namespace CinemaTicket.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Image2Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -98,9 +102,42 @@ namespace CinemaTicket.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Trafic")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("CinemaTicket.Models.MovieCrew", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("MovieCrew");
                 });
 
             modelBuilder.Entity("CinemaTicket.Models.Screening", b =>
@@ -193,6 +230,17 @@ namespace CinemaTicket.Migrations
                     b.Navigation("Screening");
                 });
 
+            modelBuilder.Entity("CinemaTicket.Models.MovieCrew", b =>
+                {
+                    b.HasOne("CinemaTicket.Models.Movie", "Movie")
+                        .WithMany("MovieCrews")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+                });
+
             modelBuilder.Entity("CinemaTicket.Models.Screening", b =>
                 {
                     b.HasOne("CinemaTicket.Models.Movie", "Movie")
@@ -227,6 +275,8 @@ namespace CinemaTicket.Migrations
 
             modelBuilder.Entity("CinemaTicket.Models.Movie", b =>
                 {
+                    b.Navigation("MovieCrews");
+
                     b.Navigation("Screenings");
                 });
 #pragma warning restore 612, 618

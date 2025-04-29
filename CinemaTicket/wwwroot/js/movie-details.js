@@ -1,0 +1,18 @@
+const tabButtons = document.querySelectorAll('.tab-btn');
+const tabPanes = document.querySelectorAll('.tab-pane');
+
+tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // ????? active ?? ?? ???????
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        // ????? active ???? ???????
+        button.classList.add('active');
+
+        // ????? ?? ?????????
+        tabPanes.forEach(pane => pane.classList.remove('active'));
+
+        // ????? ??????? ???????
+        const targetId = button.getAttribute('data-tab');
+        document.getElementById(targetId).classList.add('active');
+    });
+});

@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Movie>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h2>Categories</h2>
+
+<style>
+    /* استايل الجدول */
+    .table {
+        width: 100%;
+        margin-top: 100px;
+        background-color: #f8f9fa;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+        }
+
+        .table th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    h2 {
+        font-family: 'Arial', sans-serif;
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .text-muted {
+        font-size: 1rem;
+        color: #6c757d;
+    }
+
+</style>
+<!-- Table -->
+<table class="table table-bordered table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+
+            <th>Genre</th>
+            <th>All Movies</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @for (int i = 0; i < 4; i++)
+            {
+
+            <tr>
+                <td>Genre</td>
+                <td><a href="#">All Movies</a></td>
+
+            </tr>
+            }
+
+
+
+    </tbody>
+</table>

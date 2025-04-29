@@ -4,12 +4,12 @@
 <!-- Main Hero Banner (Improved Design) -->
 <section class="main-hero">
     <div class="hero-banner">
-        <img src="/images/Inception.jpg" alt="">
+        <img src="/images/@ViewBag.Traffic?.ImageUrl" alt="">
         <div class="hero-overlay">
             <div class="hero-content">
-                <div class="movie-badge">Now Showing</div>
-                <h1>@Model.FirstOrDefault(m => m.Title.Contains("Inception"))?.Title</h1>
-                <p class="hero-description">@Model.FirstOrDefault(e => e.Title.Contains("Inception"))?.Description</p>
+                <div class="movie-badge">Most Booking</div>
+                <h1>@ViewBag.Traffic?.Title</h1>
+                <p class="hero-description">@ViewBag.Traffic?.Description</p>
                 <div class="movie-meta">
                     <span><i class="rating-icon">PG</i> PG</span>
                     <span><i class="duration-icon">⏱</i> 1h 47m</span>
@@ -40,18 +40,31 @@
 
     <div class="filter-controls">
         <div class="filter-buttons">
-            <button class="filter-btn active">All</button>
-            <button class="filter-btn">Action</button>
-            <button class="filter-btn">Comedy</button>
-            <button class="filter-btn">Drama</button>
-            <button class="filter-btn">Horror</button>
+            <a href="@Url.Action("Index", new { Genre = "", SearchResult = ViewBag.SearchResult })" class="filter-btn @(String.IsNullOrEmpty(ViewBag.Genre) ? "active" : "")">All</a>
+            <a href="@Url.Action("Index", new { Genre = "Action", SearchResult = ViewBag.SearchResult })" class="filter-btn @(ViewBag.Genre == "Action" ? "active" : "")">Action</a>
+            <a href="@Url.Action("Index", new { Genre = "Comedy", SearchResult = ViewBag.SearchResult })" class="filter-btn @(ViewBag.Genre == "Comedy" ? "active" : "")">Comedy</a>
+            <a href="@Url.Action("Index", new { Genre = "Drama", SearchResult = ViewBag.SearchResult })" class="filter-btn @(ViewBag.Genre == "Drama" ? "active" : "")">Drama</a>
+            <a href="@Url.Action("Index", new { Genre = "Horror", SearchResult = ViewBag.SearchResult })" class="filter-btn @(ViewBag.Genre == "Horror" ? "active" : "")">Horror</a>
         </div>
 
-        <div class="search-container">
-            <input type="text" id="movie-search" placeholder="Search by movie or cinema...">
+        <form class="search-container" method="get">
+            <input type="text"
+                   name="SearchResult"
+                   id="movie-search"
+                   placeholder="Search by movie"
+                   value="@ViewBag.SearchResult" />
             <button class="search-btn">Search</button>
-        </div>
+        </form>
     </div>
+    @if (ViewBag.NoResults == true)
+    {
+        <div class="alert alert-warning text-center" role="alert">
+            No Results Found.
+        </div>
+    }
+    else
+    {
+
 
     <!-- Movie Cards -->
     <div class="movie-grid">
@@ -105,15 +118,21 @@
                         <span>@(screening.SeatNumber) seats left</span>
                         }
                     </div>
-                    <div class="booking-actions">
-                        <button class="book-btn">Book Now</button>
-                        <a asp-action="Details" asp-route="@item.Id" class="details-btn">More Details</a>
-                    </div>
+                        <div class="booking-actions">
+                            <!-- عند الضغط على Book Now، نرسل POST لزيادة الترافيك -->
+                            <form asp-action="IncreaseTraffic" method="post">
+                                <input type="hidden" name="movieId" value="@item.Id" />
+                                <button type="submit" class="book-btn">Book Now</button>
+                            </form>
+
+                            <!-- عند الضغط على More Details، ننتقل إلى تفاصيل الفيلم -->
+                            <a asp-action="Details" asp-route-id="@item.Id" class="details-btn">More Details</a>
+                        </div>
                 </div>
             </div>
         }
     </div>
-
+    }
     <!-- Pagination -->
     <div class="pagination">
         @if (ViewBag.CurrentPage > 1)

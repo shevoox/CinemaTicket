@@ -1,4 +1,4 @@
-/* Movie Details Page Styles */
+﻿/* Movie Details Page Styles */
 .movie-detail-page {
     position: relative;
     min-height: calc(100vh - 200px);
@@ -272,22 +272,22 @@
         flex-direction: column;
         gap: 2rem;
     }
-    
+
     .movie-poster-container {
         flex: 0 0 auto;
         max-width: 250px;
         margin: 0 auto;
     }
-    
+
     .movie-detail-info h1 {
         font-size: 2rem;
         text-align: center;
     }
-    
+
     .movie-meta-details {
         justify-content: center;
     }
-    
+
     .movie-actions-detail {
         justify-content: center;
     }
@@ -297,21 +297,54 @@
     .movie-detail-content {
         padding: 2rem 5%;
     }
-    
+
     .movie-detail-info h1 {
         font-size: 1.8rem;
     }
-    
+
     .movie-actions-detail {
         flex-direction: column;
     }
-    
+
     .section-tabs {
         overflow-x: auto;
         padding-bottom: 1rem;
     }
-    
+
     .tab-btn {
         white-space: nowrap;
     }
 }
+
+.cast-container {
+    display: flex; /* ترتيب العناصر في صف */
+    justify-content: space-around; /* توزيع العناصر بالتساوي */
+    align-items: center; /* محاذاة العناصر عموديًا */
+    flex-wrap: wrap; /* تتيح للعناصر التوسع في عدة صفوف إذا كانت المساحة ضيقة */
+    gap: 30px; /* المسافة بين العناصر */
+}
+
+.cast-member {
+    text-align: center;
+    width: 150px; /* عرض كل عنصر */
+}
+
+    .cast-member img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%; /* جعل الصورة دائرية */
+        object-fit: cover; /* يجعل الصورة تملأ الدائرة بشكل مناسب */
+        margin-bottom: 10px; /* المسافة بين الصورة والاسم */
+    }
+
+    .cast-member p {
+        margin: 0;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .cast-member .role {
+        font-size: 12px; /* حجم الخط للدور */
+        font-style: italic; /* جعل النص مائل (اختياري) */
+        color: #666; /* لون النص للدور */
+    }

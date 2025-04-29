@@ -8,8 +8,13 @@
         public string Genre { get; set; }
         public int Duration { get; set; }  // in minutes
         public string ImageUrl { get; set; }
+        public string Image2Url { get; set; }
         public DateTime ReleaseDate { get; set; }
         public decimal Price { get; set; }
+        public int Trafic { get; set; }
         public ICollection<Screening> Screenings { get; set; }
+        public ICollection<MovieCrew> MovieCrews { get; set; }
+
+
     }
 }
