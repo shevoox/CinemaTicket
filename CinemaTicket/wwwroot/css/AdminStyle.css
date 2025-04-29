@@ -4,7 +4,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-decoration:none;
+
+
 }
 
 :root {
@@ -24,6 +25,7 @@
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
+
 }
 
 /* Dashboard Layout */
@@ -168,6 +170,7 @@ body {
     transition: var(--transition);
     font-weight: 500;
     box-shadow: 0 4px 15px rgba(0, 168, 255, 0.3);
+    text-decoration: none !important;
 }
 
     .add-btn:hover {
