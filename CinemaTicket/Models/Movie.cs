@@ -11,7 +11,7 @@
         public string Image2Url { get; set; }
         public DateTime ReleaseDate { get; set; }
         public decimal Price { get; set; }
-        public int Trafic { get; set; }
+        public int? Trafic { get; set; } = 0;
         public ICollection<Screening> Screenings { get; set; }
         public ICollection<MovieCrew> MovieCrews { get; set; }
 

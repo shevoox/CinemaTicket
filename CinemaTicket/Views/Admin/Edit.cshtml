@@ -1,0 +1,61 @@
+﻿@model Movie
+
+@{
+    ViewData["Title"] = "Edit Movie";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var selectListItems = new SelectList(ViewBag.Genres as List<string>);
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Edit Movie</h2>
+    <form asp-action="Edit" method="post" class="shadow p-4 rounded bg-white" enctype="multipart/form-data">
+
+        <input type="hidden" asp-for="Id" />
+
+        <h4 class="text-primary">Movie Information</h4>
+
+        <div class="form-group">
+            <label>Title</label>
+            <input asp-for="Title" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Genre" class="control-label"></label>
+            <select asp-for="Genre" asp-items="selectListItems" class="form-control">
+            </select>
+            <span asp-validation-for="Genre" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Duration (minutes)</label>
+            <input asp-for="Duration" type="number" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Image URL</label>
+            <input asp-for="ImageUrl" class="form-control"  />
+        </div>
+
+        <div class="form-group">
+            <label>Image2 URL</label>
+            <input asp-for="Image2Url" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <label>Release Date</label>
+            <input asp-for="ReleaseDate" type="date" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Price</label>
+            <input asp-for="Price" type="number" step="0.01" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Update Movie</button>
+        <a asp-action="Admin" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

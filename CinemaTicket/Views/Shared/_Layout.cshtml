@@ -21,6 +21,12 @@
                         HOME
                     </a>
                 </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="Admin"
+                       class="@(ViewContext.RouteData.Values["action"]!.ToString() == "Admin" ? "active" : "")">
+                        Admin
+                    </a>
+                </li>
 @*                 <li>
                     <a asp-controller="Categories" asp-action="Index"
                        class="@(ViewContext.RouteData.Values["controller"]!.ToString() == "Categories" ? "active" : "")">

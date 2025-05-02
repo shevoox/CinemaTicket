@@ -58,8 +58,11 @@
                                     <td>@item.Screenings.FirstOrDefault()?.HallNumber</td>
                                     <td>@item.Price.ToString("c")</td>
                                     <td class="actions">
-                                        <button class="edit-btn"><i class="fas fa-edit"></i></button>
-                                        <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                                        <a asp-action="edit" asp-route-id="@item.Id" class="edit-btn"><i class="fas fa-edit"></i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="delete-btn" data-id="@item.Id">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+
                                     </td>
                                 </tr>
                             }
@@ -131,4 +134,33 @@
             </section>
         </main>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const deleteButtons = document.querySelectorAll(".delete-btn");
+
+            deleteButtons.forEach(btn => {
+                btn.addEventListener("click", function (e) {
+                    e.preventDefault(); // منع الانتقال التلقائي للرابط
+
+                    const movieId = this.getAttribute("data-id");
+                    const deleteUrl = this.getAttribute("href");
+
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = deleteUrl;
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
 </body>

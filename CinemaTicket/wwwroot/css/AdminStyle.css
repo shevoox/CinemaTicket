@@ -7,7 +7,9 @@
 
 
 }
-
+a:hover{
+    color:white !important;
+}
 :root {
     --primary-color: #7b2cbf;
     --secondary-color: #9d4edd;
@@ -249,11 +251,13 @@ tr:hover {
 .edit-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(76, 209, 55, 0.4);
+    color: #fff !important;
 }
 
 .delete-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(232, 65, 24, 0.4);
+    color: #fff !important;
 }
 
 /* Responsive Design */
