@@ -12,14 +12,14 @@ namespace CinemaTicket.ViewModels
         [Required]
         public string Description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please select a genre")]
         public string Genre { get; set; }
 
         [Range(1, 500)]
         public int Duration { get; set; }
 
-        public string ImageUrl { get; set; }
-        public string Image2Url { get; set; }
+        public IFormFile ImageUrl { get; set; }
+        public IFormFile Image2Url { get; set; }
 
         [Required]
         public DateTime ReleaseDate { get; set; }
@@ -29,7 +29,7 @@ namespace CinemaTicket.ViewModels
 
         public int Trafic { get; set; } = 0;
 
-        public List<SelectListItem> Genres { get; set; }
+        public List<SelectListItem> Genres { get; set; } = [];
 
         [Required]
         public DateTime? StartDate { get; set; }

@@ -8,7 +8,7 @@
 <div class="container mt-5">
     <h2 class="mb-4">Add New Movie</h2>
 
-    <form asp-action="Create" method="post" class="shadow p-4 rounded bg-white" enctype="multipart/form-data">
+    <form method="post" class="shadow p-4 rounded bg-white" enctype="multipart/form-data">
         @Html.AntiForgeryToken()
 
         <h4 class="text-primary">Movie Information</h4>
@@ -41,13 +41,13 @@
 
         <div class="form-group">
             <label>Upload Image 1</label>
-            <input asp-for="ImageUrl" class="form-control" type="file" name="ImageUrl" />
+            <input asp-for="ImageUrl" class="form-control" type="file"  />
             <span asp-validation-for="ImageUrl" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label>Upload Image 2</label>
-            <input asp-for="Image2Url" class="form-control" type="file" name="Image2Url" />
+            <input asp-for="Image2Url" class="form-control" type="file"  />
             <span asp-validation-for="Image2Url" class="text-danger"></span>
         </div>
 
