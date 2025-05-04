@@ -175,6 +175,33 @@ namespace CinemaTicket.Controllers.Admin
             return RedirectToAction("Admin");
         }
 
+        public IActionResult ReplaceImage(int id)
+        {
+            var movie = _dbContext.Movies.FirstOrDefault(m => m.Id == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            return View(movie);
+        }
+
+
+        public IActionResult DeleteImage(int id)
+        {
+            var movie = _dbContext.Movies.FirstOrDefault(m => m.Id == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            movie.ImageUrl = null;
+            _dbContext.Update(movie);
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("Edit", new { id = id });
+        }
+
+
         [HttpPost]
         public IActionResult Delete(int id)
         {

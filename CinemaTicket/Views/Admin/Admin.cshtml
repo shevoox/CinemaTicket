@@ -12,11 +12,11 @@
                 <h2>Admin Dashboard</h2>
             </div>
             <nav class="nav-links">
-                <a href="#movies" class="active">
+                <a asp-controller="Admin" asp-action="Admin" class="active">
                     <i class="fas fa-film"></i>
                     <span>Movies Management</span>
                 </a>
-                <a href="#cinemas">
+                <a asp-controller="Cinemas" asp-action="Index">
                     <i class="fas fa-building"></i>
                     <span>Cinemas Management</span>
                 </a>
@@ -62,11 +62,9 @@
                                         <a asp-action="Delete" asp-route-id="@item.Id" class="delete-btn" data-id="@item.Id">
                                             <i class="fas fa-trash"></i>
                                         </a>
-
                                     </td>
                                 </tr>
                             }
-
                         </tbody>
                     </table>
                 </div>
@@ -97,7 +95,6 @@
                                     <button class="delete-btn"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
-                            <!-- More rows will be added dynamically -->
                         </tbody>
                     </table>
                 </div>
@@ -127,40 +124,34 @@
                                     <button class="delete-btn"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
-                            <!-- More rows will be added dynamically -->
                         </tbody>
                     </table>
                 </div>
             </section>
         </main>
     </div>
-    <script>
+
+@*     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const deleteButtons = document.querySelectorAll(".delete-btn");
+            const links = document.querySelectorAll(".nav-links a");
+            const sections = document.querySelectorAll(".section");
 
-            deleteButtons.forEach(btn => {
-                btn.addEventListener("click", function (e) {
-                    e.preventDefault(); // منع الانتقال التلقائي للرابط
+            links.forEach(link => {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
 
-                    const movieId = this.getAttribute("data-id");
-                    const deleteUrl = this.getAttribute("href");
+                    // Hide all sections
+                    sections.forEach(section => section.classList.remove("active"));
 
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6',
-                        confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = deleteUrl;
-                        }
-                    });
+                    // Show the clicked section
+                    const targetSection = document.querySelector(this.getAttribute("href"));
+                    targetSection.classList.add("active");
+
+                    // Update active link
+                    links.forEach(l => l.classList.remove("active"));
+                    this.classList.add("active");
                 });
             });
         });
-    </script>
-
+    </script> *@
 </body>

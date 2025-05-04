@@ -35,6 +35,13 @@ body {
     display: flex;
     min-height: 100vh;
 }
+.section {
+    display: none;
+}
+
+    .section.active {
+        display: block;
+    }
 
 /* Sidebar Styles */
 .sidebar {

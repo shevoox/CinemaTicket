@@ -4,7 +4,9 @@
     ViewData["Title"] = "Edit Movie";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 
-    var selectListItems = new SelectList(ViewBag.Genres as List<string> ?? new List<string>());
+    var genres = ViewBag.Genres as List<string> ?? new List<string>();
+    var selectListItems = new SelectList(genres);
+
 }
 
 <div class="container mt-5">
@@ -41,26 +43,21 @@
             <label>Current Image</label><br />
             @if (!string.IsNullOrEmpty(Model.ImageUrl))
             {
-                <img src="~/images/@Model.ImageUrl" alt="Movie Image" style="max-width: 200px; max-height: 200px;" class="mb-2" />
-                <div>
-                    <button type="button" class="btn btn-warning btn-sm mb-2" onclick="document.getElementById('ImageUpload').click()">Replace Image</button>
-                    <button type="submit" formaction="/Movies/DeleteImage/@Model.Id" formmethod="post" class="btn btn-danger btn-sm mb-2">Delete Image</button>
+                <img src="~/images/@Model.ImageUrl" alt="Current Image" style="max-width: 200px; height: auto;" />
+                <div class="mt-2">
+                    <a asp-action="ReplaceImage" asp-route-id="@Model.Id" class="btn btn-warning">Replace</a>
+                    <a asp-action="DeleteImage" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
                 </div>
             }
             else
             {
-                <p class="text-muted">No image uploaded.</p>
+                <p>No image uploaded.</p>
             }
-
-            <!-- Hidden file input for replacement -->
-            <input type="file" name="ImageFile" id="ImageUpload" class="form-control" style="display:none" onchange="this.form.submit()" />
-
-            <!-- Keep existing ImageUrl as hidden -->
-            <input type="hidden" asp-for="ImageUrl" />
         </div>
 
 
-        <div class="form-group">
+
+		<div class="form-group">
             <label>Image2 URL</label>
             <input asp-for="Image2Url" class="form-control"  />
         </div>
